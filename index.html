@@ -413,26 +413,32 @@
     <script>
         // Function to download blueprint and capture form data
         function downloadBlueprint() {
-            const formData = new FormData(document.getElementById('leadForm'));
-            const data = Object.fromEntries(formData);
-            
-            // Validate required fields
-            if (!data.firstName || !data.lastName || !data.email) {
-                alert('Please fill in all required fields (First Name, Last Name, and Email).');
-                return;
-            }
-            
-            // Add timestamp and source
-            data.submissionDate = new Date().toISOString();
-            data.source = 'Tax-Free Retirement Landing Page';
-            
-            // Log the data (replace this with your data collection method)
-            console.log('Lead captured:', data);
-            
-            // Show success message
-            document.getElementById('successMessage').style.display = 'block';
-            
-            // Download the PDF
+    const formData = new FormData(document.getElementById('leadForm'));
+    const data = Object.fromEntries(formData);
+    
+    // Validate required fields
+    if (!data.firstName || !data.lastName || !data.email) {
+        alert('Please fill in all required fields (First Name, Last Name, and Email).');
+        return;
+    }
+    
+    // Add timestamp and source
+    data.submissionDate = new Date().toISOString();
+    data.source = 'Tax-Free Retirement Landing Page';
+    
+    // Log the data
+    console.log('Lead captured:', data);
+    
+    // Show success message
+    document.getElementById('successMessage').style.display = 'block';
+    
+    // Try to download the PDF
+    try {
+        window.open('tax-free-retirement-blueprint.pdf', '_blank');
+    } catch (error) {
+        alert('Blueprint PDF not found. Please contact mcclendonma12@yahoo.com for your free blueprint.');
+    }
+}
             const link = document.createElement('a');
             link.href = 'tax-free-retirement-blueprint.pdf';
             link.download = 'tax-free-retirement-blueprint.pdf';
