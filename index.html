@@ -341,9 +341,9 @@
                         </select>
                     </div>
                     
-                    <a href="./tax-free-retirement-blueprint.pdf" download class="submit-btn" onclick="captureFormData()">
+                    <button type="button" class="submit-btn" onclick="downloadBlueprint()">
                         🔓 Get My FREE Blueprint Now
-                    </a>
+                    </button>
                     
                     <p class="privacy-note">
                         We respect your privacy. Your information will never be shared.
@@ -406,15 +406,21 @@
     <footer>
         <div class="container">
             <p>&copy; 2025 Alliance Notary Solutions. All rights reserved.</p>
-            <p>Email: info@alliancenotarysolutions.com | Secure your tax-free retirement today</p>
+            <p>Email: mcclendonma12@yahoo.com | Secure your tax-free retirement today</p>
         </div>
     </footer>
 
     <script>
-        // Function to capture form data when blueprint is downloaded
-        function captureFormData() {
+        // Function to download blueprint and capture form data
+        function downloadBlueprint() {
             const formData = new FormData(document.getElementById('leadForm'));
             const data = Object.fromEntries(formData);
+            
+            // Validate required fields
+            if (!data.firstName || !data.lastName || !data.email) {
+                alert('Please fill in all required fields (First Name, Last Name, and Email).');
+                return;
+            }
             
             // Add timestamp and source
             data.submissionDate = new Date().toISOString();
@@ -425,6 +431,14 @@
             
             // Show success message
             document.getElementById('successMessage').style.display = 'block';
+            
+            // Download the PDF
+            const link = document.createElement('a');
+            link.href = './tax-free-retirement-blueprint.pdf';
+            link.download = 'tax-free-retirement-blueprint.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
             
             // Here you would send data to your collection service:
             // Example: sendToMailChimp(data);
